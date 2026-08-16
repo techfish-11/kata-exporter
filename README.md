@@ -51,10 +51,29 @@ KATA_CONFIG=./kata-exporter.json ./kata-exporter serve
 
 ```bash
 cp .env.example .env
+# .env の KATA_TOKEN / KATA_SECRET を実際の値に変更
 docker compose up -d
 ```
 
-Docker構成はExporter単体です。既存Prometheusから `kata-exporter:9788` をscrapeしてください。
+ComposeはExporter、Prometheus、Grafanaをまとめて起動します。Prometheusは
+`kata-exporter:9788` を自動的にscrapeし、GrafanaにはPrometheusデータソースと
+同梱ダッシュボードが自動登録されます。
+
+- Grafana: <http://127.0.0.1:3000>
+- Prometheus UI: <http://127.0.0.1:9090>
+- Exporter metrics: <http://127.0.0.1:9788/metrics>
+- Prometheusのデータは名前付きボリューム `prometheus-data` に保存されます。
+- Grafanaのデータは名前付きボリューム `grafana-data` に保存されます。
+- 保持期間は `.env` の `PROMETHEUS_RETENTION`（デフォルト `30d`）で変更できます。
+- Grafanaへは `.env` の `GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD` でログインします。
+
+起動状態とscrape状態は次のコマンドで確認できます。
+
+```bash
+docker compose ps
+docker compose logs -f
+# Prometheus UIの Status > Target health でも確認可能
+```
 
 ## ビルド・テスト
 
@@ -82,4 +101,3 @@ Go 1.22以上が必要です。リリース用ビルドでは `-ldflags "-X main
 ## License
 
 MIT
-
