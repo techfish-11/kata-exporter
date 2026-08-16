@@ -60,7 +60,7 @@ ComposeはExporter、Prometheus、Grafanaをまとめて起動します。Promet
 同梱ダッシュボードが自動登録されます。
 
 - Grafana: <http://127.0.0.1:3000>
-- Prometheus UI: <http://127.0.0.1:9090>
+- Prometheus UI: <http://127.0.0.1:19090>
 - Exporter metrics: <http://127.0.0.1:9788/metrics>
 - Prometheusのデータは名前付きボリューム `prometheus-data` に保存されます。
 - Grafanaのデータは名前付きボリューム `grafana-data` に保存されます。
