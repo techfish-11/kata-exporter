@@ -37,7 +37,7 @@ func (e *Exporter) Gather(ctx context.Context) ([]byte,error) {
 	for i,d:=range devices { wg.Add(1); go func(i int,d switchbot.Device){ defer wg.Done(); sem<-struct{}{}; defer func(){<-sem}(); results[i]=e.collect(ctx,d) }(i,d) }
 	wg.Wait(); sort.Slice(results,func(i,j int)bool{return results[i].device.DeviceID<results[j].device.DeviceID})
 	w:=&metrics.Writer{}
-	e.write(&w,results,discoverOK,time.Since(started))
+	e.write(w,results,discoverOK,time.Since(started))
 	e.cache=append(e.cache[:0],w.Bytes()...); e.cachedAt=time.Now()
 	return append([]byte(nil),e.cache...),nil
 }
