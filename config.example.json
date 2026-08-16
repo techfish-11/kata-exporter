@@ -1,0 +1,15 @@
+{
+  "token": "YOUR_SWITCHBOT_OPEN_TOKEN",
+  "secret": "YOUR_SWITCHBOT_SECRET",
+  "device_ids": [],
+  "listen": ":9788",
+  "api_base_url": "https://api.switch-bot.com",
+  "http_timeout": "12s",
+  "scrape_cache": "10s",
+  "diary_enabled": true,
+  "diary_window": "24h",
+  "diary_refresh": "15m",
+  "discovery_refresh": "30m",
+  "max_concurrency": 4
+}
+

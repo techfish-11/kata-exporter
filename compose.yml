@@ -1,0 +1,16 @@
+services:
+  kata-exporter:
+    build: .
+    image: kata-exporter:local
+    restart: unless-stopped
+    read_only: true
+    environment:
+      KATA_TOKEN: ${KATA_TOKEN:?set KATA_TOKEN in .env}
+      KATA_SECRET: ${KATA_SECRET:?set KATA_SECRET in .env}
+      KATA_DIARY_ENABLED: ${KATA_DIARY_ENABLED:-true}
+      KATA_DIARY_WINDOW: ${KATA_DIARY_WINDOW:-24h}
+    ports:
+      - "127.0.0.1:9788:9788"
+    security_opt:
+      - no-new-privileges:true
+
